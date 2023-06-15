@@ -2,25 +2,22 @@ import React, {useEffect, useState} from "react";
 import {Button, Paper} from "@mui/material";
 import "./GuiMainImageView.css";
 import {InferenceSession} from "onnxruntime-web";
-
 const GuiMainImageView = () => {
     let [imageUrl, setImageUrl] = useState("");
     let [model, setModel] = useState(null);
     
     useEffect(() => {
         const _initModel = async () => {
-            try {
-                if(process.env.REACT_APP_MODEL_PATH == null) return;
-                // console.log('test1: '+process.env.REACT_APP_MODEL_PATH);
-                const new_model = await InferenceSession.create(String(process.env.REACT_APP_MODEL_PATH));
-                setModel(new_model);
-            } catch (e)
+            try 
             {
-                console.log("Error load model: " + e);
+                if (process.env.REACT_APP_MODEL_PATH === undefined) return;
+                const model = await InferenceSession.create(process.env.REACT_APP_MODEL_PATH);
+                setModel(model);
+            } catch (e) 
+            {
+                console.log(e);
             }
-            
-            
-        }
+        };
         _initModel();
         
     }, []);
