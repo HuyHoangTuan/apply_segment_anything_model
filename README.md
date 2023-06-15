@@ -1,1 +1,0 @@
-# apply_segment_anything_model
