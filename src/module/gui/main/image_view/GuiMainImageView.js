@@ -12,7 +12,6 @@ const GuiMainImageView = () => {
             {
                 if (process.env.REACT_APP_MODEL_PATH === undefined) return;
                 const model = await InferenceSession.create(process.env.REACT_APP_MODEL_PATH);
-                console.log("Model: ", model);
                 setModel(model);
             } catch (e) 
             {
@@ -23,7 +22,14 @@ const GuiMainImageView = () => {
         
     }, []);
     let handleImage = (e) => {
-        setImageUrl(URL.createObjectURL(e.target.files[0]));
+        if(e.target.files[0] != null) 
+        {
+            setImageUrl(URL.createObjectURL(e.target.files[0]));
+        }
+        else
+        {
+            setImageUrl(null);
+        }
     };
     
     let handleSubmit = (e) => {
@@ -47,6 +53,8 @@ const GuiMainImageView = () => {
                                     width: "100%",
                                     height: "100%",
                                     objectFit: "contain",
+                                    marginLeft: "auto",
+                                    marginRight: "auto"
                                 }
                             }
                         />
