@@ -12,6 +12,7 @@ const GuiMainImageView = () => {
             {
                 if (process.env.REACT_APP_MODEL_PATH === undefined) return;
                 const model = await InferenceSession.create(process.env.REACT_APP_MODEL_PATH);
+                console.log("Model: ", model);
                 setModel(model);
             } catch (e) 
             {
