@@ -18,9 +18,10 @@ const ort = require("onnxruntime-web");
 import npyjs from "npyjs";
 
 // Define image, embedding and model paths
-const IMAGE_PATH = "/assets/data/dogs.jpg";
-const IMAGE_EMBEDDING = "/assets/data/dogs_embedding.npy";
-const MODEL_DIR = "/model/sam_onnx_quantized.onnx";
+let prefix = process.env.NODE_ENV === "development" ? "" : "/apply_segment_anything_model";
+const IMAGE_PATH =prefix+"/assets/data/dogs.jpg";
+const IMAGE_EMBEDDING = prefix + "/assets/data/dogs_embedding.npy";
+const MODEL_DIR = prefix+"/model/sam_onnx_quantized.onnx";
 
 const App = () => {
   const {
@@ -38,6 +39,7 @@ const App = () => {
   // Initialize the ONNX model. load the image, and load the SAM
   // pre-computed image embedding
   useEffect(() => {
+    // console.log(process.env.NODE_ENV);
     // Initialize the ONNX model
     const initModel = async () => {
       try {
@@ -65,6 +67,7 @@ const App = () => {
   const loadImage = async (url: URL) => {
     try {
       const img = new Image();
+      console.log('test:1 ', url.href);
       img.src = url.href;
       img.onload = () => {
         const { height, width, samScale } = handleImageScale(img);
