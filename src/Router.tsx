@@ -6,7 +6,7 @@ const CustomRouter = createBrowserRouter(
     createRoutesFromElements(
         [
             <Route
-                path ="/test"
+                path ="/*"
                 loader = {
                     async (props) => {
                         return props;
