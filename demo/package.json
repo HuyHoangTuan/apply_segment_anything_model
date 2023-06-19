@@ -5,9 +5,9 @@
   "homepage": "https://huyhoangtuan.github.io/apply_segment_anything_model/",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "build": "npm run clean-dist && webpack --config=configs/webpack/prod.js && mv dist/*.wasm dist/js",
-    "clean-dist": "rimraf dist/*",
+    "deploy": "gh-pages -d build",
+    "build": "npm run clean-dist && webpack --config=configs/webpack/prod.js && mv build/*.wasm build/js",
+    "clean-dist": "rimraf build/*",
     "lint": "eslint './src/**/*.{js,ts,tsx}' --quiet",
     "start": "npm run start-dev",
     "test": "npm run start-model-test",
