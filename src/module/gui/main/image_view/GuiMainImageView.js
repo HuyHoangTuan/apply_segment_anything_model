@@ -26,10 +26,6 @@ const GuiMainImageView = () => {
         {
             setImageUrl(URL.createObjectURL(e.target.files[0]));
         }
-        else
-        {
-            setImageUrl(null);
-        }
     };
     
     let handleSubmit = (e) => {
