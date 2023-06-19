@@ -1,4 +1,4 @@
-// Copyright (c) Meta Platforms, Inc. and affiliates.
+﻿// Copyright (c) Meta Platforms, Inc. and affiliates.
 // All rights reserved.
 
 // This source code is licensed under the license found in the
@@ -14,9 +14,6 @@ module.exports = {
   entry: "./src/index.tsx",
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
-  },
-  output: {
-    path: resolve(__dirname, "dist"),
   },
   module: {
     rules: [
