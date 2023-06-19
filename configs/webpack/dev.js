@@ -20,6 +20,5 @@ module.exports = merge(commonConfig, {
       "Cross-Origin-Opener-Policy": "same-origin",
       "Cross-Origin-Embedder-Policy": "credentialless",
     },
-  },
-  devtool: "cheap-module-source-map",
+  }
 });

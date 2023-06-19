@@ -1,4 +1,4 @@
-// Copyright (c) Meta Platforms, Inc. and affiliates.
+﻿// Copyright (c) Meta Platforms, Inc. and affiliates.
 // All rights reserved.
 
 // This source code is licensed under the license found in the
@@ -7,15 +7,12 @@
 // production config
 const { merge } = require("webpack-merge");
 const { resolve } = require("path");
-const Dotenv = require("dotenv-webpack");
 const commonConfig = require("./common");
 
 module.exports = merge(commonConfig, {
   mode: "production",
   output: {
-    filename: "js/bundle.[contenthash].min.js",
+    filename: "js/bundle.min.js",
     path: resolve(__dirname, "../../build"),
-    publicPath: "/",
-  },
-  devtool: "source-map"
+  }
 });
