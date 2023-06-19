@@ -8,10 +8,12 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 import AppContextProvider from "./components/hooks/context";
 import App from "./App";
+import CustomRouter from "../src/Router";
+import {RouterProvider} from "react-router-dom";
 const container = document.getElementById("root");
 const root = createRoot(container!);
 root.render(
   <AppContextProvider>
-    <App/>
+      <RouterProvider router={CustomRouter}/>
   </AppContextProvider>
 );
