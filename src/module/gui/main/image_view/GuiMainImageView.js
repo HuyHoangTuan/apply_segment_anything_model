@@ -1,37 +1,66 @@
 import React, {useEffect, useState} from "react";
 import {Button, Paper} from "@mui/material";
 import "./GuiMainImageView.css";
-import {InferenceSession} from "onnxruntime-web";
+import {APIManager} from "../../../api/APIManager";
+import {API_ENDPOINT, GUI_STATE} from "../../../const/Const";
 const GuiMainImageView = () => {
-    let [imageUrl, setImageUrl] = useState("");
-    let [model, setModel] = useState(null);
+    let [image, setImage] = useState(null);
+    let [imageURL, setImageURL] = useState("");
+    let [state, setState] = useState(GUI_STATE.DONE);
     
     useEffect(() => {
-        const _initModel = async () => {
-            try 
-            {
-                if (process.env.REACT_APP_MODEL_PATH === undefined) return;
-                const model = await InferenceSession.create(process.env.REACT_APP_MODEL_PATH);
-                setModel(model);
-            } catch (e) 
-            {
-                console.log(e);
-            }
-        };
-        _initModel();
-        
-    }, []);
+        switch (state)
+        {
+            case GUI_STATE.LOADING:
+                break;
+                
+            case GUI_STATE.DONE:
+                break;
+        }
+    }, [state]);
     let handleImage = (e) => {
         if(e.target.files[0] != null) 
         {
-            setImageUrl(URL.createObjectURL(e.target.files[0]));
+            setImage(e.target.files[0]);
+            setImageURL(URL.createObjectURL(e.target.files[0]));
         }
     };
     
+    let convertToBase64 = (data) => {
+        let base64Data = btoa(
+            new Uint8Array(data).reduce(
+                (data, byte) => data + String.fromCharCode(byte),
+                ''
+            )
+        );
+        let _src = `data:image/png;base64,${base64Data}`;
+        
+        setImageURL(_src);
+        
+    }
     let handleSubmit = (e) => {
         e.preventDefault();
         e.stopPropagation();
         
+        let endPoint = API_ENDPOINT.REMOVE_BACKGROUND;
+        
+        let formData = new FormData();
+        formData.append("file", image);
+        
+        let headers = {
+            'Content-Type': 'multipart/form-data',
+        }
+        
+        let responseType = 'arraybuffer'
+        
+        APIManager.post(endPoint, headers, {}, responseType, formData)
+            .then((res) => {
+                convertToBase64(res.data);
+            })
+            .catch((err) => {
+               console.log(`POST ${endPoint} errors: ${err}`); 
+            });
+        setState(GUI_STATE.LOADING)
     };
     
     return(
@@ -42,8 +71,9 @@ const GuiMainImageView = () => {
                     className = "image_box"
                 >
                     {
-                        imageUrl && <img
-                            src={imageUrl}
+                        imageURL && <img
+                            src={imageURL}
+                            alt={'image'}
                             style = {
                                 {
                                     width: "100%",
