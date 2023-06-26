@@ -125,7 +125,7 @@ const GuiMainImageView = () => {
                         }
                         onClick = {handleSubmit}
                     >
-                        Upload
+                        PROCESS
                     </Button>
                 </Paper>
             </div>
