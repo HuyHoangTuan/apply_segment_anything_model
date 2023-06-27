@@ -2,7 +2,7 @@ import axios from "axios";
 export const APIManager = function() {
 
     const APIKey = process.env.REACT_APP_API_KEY
-    const baseURL = process.env.REACT_APP_API_BASE_URL
+    const baseURL = location.origin
 
     let defaultHeaders = {
     }

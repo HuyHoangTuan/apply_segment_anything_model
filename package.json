@@ -6,7 +6,7 @@
   "scripts": {
     "predeploy" : "npm run build",
     "deploy" : "gh-pages -d build",
-    "clean-dist": "rimraf dist/*",
+    "clean-dist": "rimraf build/*",
     "build": "npm run clean-dist && webpack --config=configs/webpack/prod.js",
     "start-dev": "webpack serve --config=configs/webpack/dev.js",
     "start": "npm run start-dev"
